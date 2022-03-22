@@ -1,0 +1,14 @@
+Bugs:
+
+weird offset with mouse (probably just add an offset in the aiming)
+
+
+Stuff I Need:
+Enemy Model
+Player Animation
+Projectile model
+
+Animation Notes:
+
+Base Animator which has base movement states
+Weapon specific override controllers
