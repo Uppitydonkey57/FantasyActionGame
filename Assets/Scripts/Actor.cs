@@ -112,14 +112,6 @@ public class Actor : MonoBehaviour
             healthBar.value = health;
         }
 
-        if (GetComponents<MeshRenderer>() != null)
-        {
-            foreach (MeshRenderer rend in GetComponents<MeshRenderer>())
-            {
-                sprites.Add(rend);
-            }
-        }
-
         if (GetComponentsInChildren<MeshRenderer>() != null)
         {
             foreach (MeshRenderer rend in GetComponentsInChildren<MeshRenderer>())
@@ -142,7 +134,7 @@ public class Actor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics2D.OverlapCircle(transform.position, activationRange, activationLayer) != null)
+        if (Physics.OverlapSphere(transform.position, activationRange, activationLayer) != null)
         {
             Activate();
         }
@@ -285,10 +277,16 @@ public class Actor : MonoBehaviour
         }
     }
 
-    public virtual void ChangeHealthKnockback(float amount, Vector2 knockbackDirection)
+    public virtual void ChangeHealthKnockback(float amount, Vector3 knockbackDirection)
     {
+        float initialHealth = health;
+
         ChangeHealth(amount);
-        rb.AddForce(knockbackDirection * knockbackSpeed * Time.deltaTime, ForceMode.Impulse);
+
+        if (health != initialHealth) 
+        {
+            rb.AddForce(knockbackDirection * knockbackSpeed, ForceMode.Impulse);
+        }
     }
 
     public void Activate()
@@ -380,9 +378,12 @@ public class Actor : MonoBehaviour
             sprites[i].material = spriteColors[i];
         }
 
-        for (int i = 0; i < skinnedSprites.Count; i++)
+        if (skinnedSprites.Count > 0) 
         {
-            skinnedSprites[i].material = spriteColors[i + sprites.Count];
+            for (int i = 0; i < skinnedSprites.Count; i++)
+            {
+                skinnedSprites[i].material = spriteColors[i + sprites.Count];
+            }
         }
     }
 

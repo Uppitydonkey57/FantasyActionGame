@@ -56,7 +56,8 @@ public class MoveTowardsPlayer : StateMachineBehaviour
                 direction.x = player.transform.position.x + offset.x < animator.transform.position.x ? -1 : 1;
                 direction.y = player.transform.position.y + offset.y < animator.transform.position.y ? -1 : 1;
                 direction.z = player.transform.position.z + offset.z < animator.transform.position.z ? -1 : 1;
-                rb.velocity = new Vector3(freezeX ? rb.velocity.x : velocitySpeed.x * direction.x, freezeY ? rb.velocity.y : velocitySpeed.y * direction.y, freezeZ ? rb.velocity.z : velocitySpeed.z * direction.z);
+                Vector3 velocityMovement = new Vector3(freezeX ? rb.velocity.x : velocitySpeed.x * direction.x, freezeY ? rb.velocity.y : velocitySpeed.y * direction.y, freezeZ ? rb.velocity.z : velocitySpeed.z * direction.z);
+                rb.velocity = velocityMovement;
             }
         }
     }

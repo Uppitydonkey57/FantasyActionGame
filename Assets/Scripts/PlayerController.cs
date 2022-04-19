@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform cam;
 
-    [SerializeField] private float gravity = -9.8f;
     private Vector3 velocity;
 
     [SerializeField] private float dialogueRange;
@@ -39,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private PlayerWeaponData data;
+
     #endregion
     
     #region Main
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
         SetWeapon();
     }
 
-    enum PlayerState { MOVING, ATTACKING, DIALOGUE }
+    enum PlayerState { MOVING, ATTACKING, DIALOGUE, FROZEN }
     PlayerState state = PlayerState.MOVING;
 
     private void Update() {
@@ -72,7 +73,6 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown("Dialogue")) 
                 {
                     RunDialogue();
-                    animator.SetBool("Moving", false);
                 }
 
                 if (Input.GetButtonDown("Fire1")) 
@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
                         state = PlayerState.MOVING;
                     }
                 }
+                break;
+            
+            case PlayerState.FROZEN:
                 break;
         }
     }
@@ -116,6 +119,18 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    public void StartDialogue() 
+    {
+        state = PlayerState.DIALOGUE;
+        animator.SetBool("Moving", false);
+    }
+
+    public void IsPlayerFrozen(bool isFrozen) 
+    {
+        state = isFrozen ? PlayerState.FROZEN : PlayerState.MOVING;
+        animator.SetBool("Moving", false);
+    }
+
     #endregion
 
     private void OnDrawGizmosSelected() 
@@ -134,7 +149,7 @@ public class PlayerController : MonoBehaviour
         if (npcDialogue != null) 
         {
             npcDialogue.StartDialogue();
-            state = PlayerState.DIALOGUE;
+            StartDialogue();
         }
     }
     
@@ -171,8 +186,8 @@ public class PlayerController : MonoBehaviour
         switch (currentWeapon.weaponType) 
         {
             case WeaponType.Bow:
+                animator.runtimeAnimatorController = data.bowAnimator;
                 weapon.weaponType = Weapon.WeaponType.Projectile;
-                weapon.projectileSpeed = 6f;
                 weapon.projectilePrefab = currentWeapon.projectile;
 
                 foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
@@ -185,9 +200,10 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case WeaponType.Sword:
+                animator.runtimeAnimatorController = data.swordAnimator;
                 weapon.weaponType = Weapon.WeaponType.Melee;
-                weapon.attackRange = new Vector3(4.2f, 0.86f, 2.34f);
-                weapon.attackOffset = new Vector3(0, 0, 1.83f);
+                weapon.attackRange = data.swordAttackRange;
+                weapon.attackOffset = data.swordAttackOffset;
                 weapon.damage = currentWeapon.damage;
 
                 Instantiate(currentWeapon.weaponModel, hand1.position, Quaternion.identity, hand1);
@@ -199,16 +215,20 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 break;
+
+            default:
+                animator.runtimeAnimatorController = data.defaultAnimator;
+                break;
         }
     }
 
     IEnumerator SwordAttack() 
     {
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.15f); 
 
         weapon.Attack();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.33f);
 
         animator.SetBool("Attacking", false);
         state = PlayerState.MOVING;

@@ -2,13 +2,22 @@ Bugs:
 
 weird offset with mouse (probably just add an offset in the aiming)
 
+Feature Creep:
+hats
+pets
+weapons with knockback modifiers (more knockback more fun!!!)
 
-Stuff I Need:
-Enemy Model
-Player Animation
-Projectile model
+Wizard types:
+    teleport, shoot, teleport: terraria, shovel knight, my last game
+    move, shoot, teleport: most other games
 
-Animation Notes:
+Marketing:
 
-Base Animator which has base movement states
-Weapon specific override controllers
+    Twitter:
+        intially show what the game is
+        every gameplay related post should show something new and interesting
+        otherwise it can be something people can learn from with the game engine side
+        or a funny thing to catch peoples attention
+        announcement would work to
+
+Model Size: 0.415397

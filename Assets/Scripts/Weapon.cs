@@ -69,7 +69,7 @@ public class Weapon : MonoBehaviour
                         {
                             if (Array.Exists(inRangeActor.hitTags, element => element == hitTag))
                             {
-                                inRangeActor.ChangeHealthKnockback(-damage, transform.right);
+                                inRangeActor.ChangeHealthKnockback(-damage, transform.forward);
                             }
                         }
                     }
@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour
                             {
                                 if (Array.Exists(inRangeActor.hitTags, element => element == hitTag))
                                 {
-                                    inRangeActor.ChangeHealthKnockback(-damage, transform.right);
+                                    inRangeActor.ChangeHealthKnockback(-damage, transform.forward);
                                 }
                             }
                         }
