@@ -15,6 +15,13 @@ public class DialogueObject : MonoBehaviour
     [SerializeField] private GameObject buttonPrompt;
 
     private DialogueRunner dialogueRunner;
+
+    private bool canTalk = true;
+
+    private bool finishedTalking = true;
+
+    [SerializeField] private float dialogueWaitTime = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +30,11 @@ public class DialogueObject : MonoBehaviour
 
     public void StartDialogue() 
     {
-        if (!dialogueRunner.IsDialogueRunning) 
+        if (!dialogueRunner.IsDialogueRunning && canTalk) 
+        {
             dialogueRunner.StartDialogue(node); 
+            finishedTalking = false;
+        }
     }
 
     private void Update() 
@@ -38,5 +48,20 @@ public class DialogueObject : MonoBehaviour
         {
             buttonPrompt.SetActive(false);
         }
+
+        if (!dialogueRunner.IsDialogueRunning && !finishedTalking)
+        {
+            finishedTalking = true;
+            StartCoroutine(DialogueWait());
+        }
+    }
+
+    IEnumerator DialogueWait() 
+    {
+        canTalk = false;
+
+        yield return new WaitForSeconds(dialogueWaitTime);
+
+        canTalk = true;
     }
 }

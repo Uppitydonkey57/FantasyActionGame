@@ -134,7 +134,7 @@ public class Actor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.OverlapSphere(transform.position, activationRange, activationLayer) != null)
+        if (Physics.OverlapSphere(transform.position, activationRange, activationLayer).Length > 0)
         {
             Activate();
         }

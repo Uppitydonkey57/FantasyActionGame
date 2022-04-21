@@ -1,5 +1,63 @@
-﻿title: DemoDialogue
-tags:
+title: Intro
+tags: 
+colorID: 0
+position: 452,299
 ---
-
+Kobold: Help! All my friends have turned evil!
+You: What happened?
+Kobold: I don't know! all of a sudden most of my friends suddenly tried to kill me!
+You: Did you say something really awful or did it seem like it was something supernatural?
+Kobold: Definitely supernatural.
+You: Ok I guess I'll help you out then.
+Kobold: Thank you!
+===
+title: FirstKobold
+tags: 
+colorID: 0
+position: 800,324
+---
+Kobold: Please help me out!!
+You: I already told you I'd help you out.
+===
+title: CapybaraKobold
+tags: 
+colorID: 0
+position: 173,298
+---
+Kobold: I've been betrayed by my greatest companion.
+You: And who is that exactly?
+Kobold: My pet capybara Jeremy.
+Kobold: We did everything together, no one could seperate us.
+Kobold: And now he's turned against me.
+You: That's very sad. I'm trying to get rid of whatever is causing Jeremy to turn against you.
+You: So hopefully that will help you out.
+Kobold: *Inaudible Grumbling*
+===
+title: LogKobold
+tags: 
+colorID: 0
+position: 188,610
+---
+Kobold: Boo!
+You: Ahhh
+Kobold: I got you!
+You: You sure did.
+You: What're you doing in there?
+Kobold: Hiding!
+You: Why hide? Why not fight back!?
+Kobold: I don't know I just don't really feel like it.
+Kobold: It just feels too risky.
+You: Well ok then.
+===
+title: HidingKobold
+tags: 
+colorID: 0
+position: 459,617
+---
+You: Hello
+Kobold: SHHHHHHH
+Kobold: I'm hiding!
+You: *whispers*
+You: Have you ever considered moving to a better hiding place?
+Kobold: I'll think about it if it becomes necessary.
 ===

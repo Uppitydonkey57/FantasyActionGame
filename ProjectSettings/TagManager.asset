@@ -16,8 +16,8 @@ TagManager:
   - Interactable
   - Player
   - Render Texture
-  - 
-  - 
+  - Enemy
+  - EnemyProjectile
   - 
   - 
   - 
