@@ -7,7 +7,12 @@ using UnityEngine.UI;
 public class Actor : MonoBehaviour
 {
     public float maxHealth;
-    public float health;
+
+    private float actualHealth;
+
+    public bool setMaxHp = true;
+
+    public virtual float health { get {return actualHealth; } set {actualHealth = value; } }
 
     public string[] hitTags;
 
@@ -73,7 +78,8 @@ public class Actor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        if (setMaxHp)
+            health = maxHealth;
 
         screenShake = FindObjectOfType<ScreenShake>();
 
@@ -167,7 +173,8 @@ public class Actor : MonoBehaviour
     {
         if (!isInvinsible)
         {
-            health += amount;
+            float totalHealth = health + amount;
+            health = (totalHealth > maxHealth) ? maxHealth : totalHealth;
 
             if (animator != null && ParameterExists("Hp")) animator.SetFloat("Hp", health);
 

@@ -14,7 +14,7 @@ Kobold: Thank you!
 title: FirstKobold
 tags: 
 colorID: 0
-position: 800,324
+position: 744,299
 ---
 Kobold: Please help me out!!
 You: I already told you I'd help you out.
@@ -22,7 +22,7 @@ You: I already told you I'd help you out.
 title: CapybaraKobold
 tags: 
 colorID: 0
-position: 173,298
+position: 173,296
 ---
 Kobold: I've been betrayed by my greatest companion.
 You: And who is that exactly?
@@ -36,7 +36,7 @@ Kobold: *Inaudible Grumbling*
 title: LogKobold
 tags: 
 colorID: 0
-position: 188,610
+position: 186,610
 ---
 Kobold: Boo!
 You: Ahhh
@@ -60,4 +60,36 @@ Kobold: I'm hiding!
 You: *whispers*
 You: Have you ever considered moving to a better hiding place?
 Kobold: I'll think about it if it becomes necessary.
+===
+title: Save
+tags: 
+colorID: 0
+position: 745,607
+---
+Owl: Helloooooo
+You: Hi
+Owl: Would you like to save your game?
+You: ???
+Owl: Never mind I'll just do it for You
+<<save>>
+Your game has been saved.
+You: What are you talking about?
+Owl: hoot hoot
+===
+title: EndWizard
+tags: 
+colorID: 0
+position: -59,270
+---
+Wizard: WHAT HAVE I DONE!?
+You: I don't know, you tell me!
+Wizard: I attempted to open a portal to another dimension but I failed and now I've created a hole in this world!
+Wizard: And now strange energy is coming through the portal into our world!
+You: So that's what's been causing all the trouble in this forest.
+Wizard: What do you mean.
+You: The energy coming from your portal is infecting some of the inhabitants of this forest! 
+Wizard: OH NO!
+You: OH YES! What are you going to do about it! Are you just going to let them stay like this.
+Wizard: I don't know if I'll be able to, I have trouble taking action.
+You: OH MY GOD!!! YOU'RE RIDICULOUS, FINE THEN I'LL FIX THIS MYSELF, I'M COMING FOR YOU PORTAL!!!!!
 ===

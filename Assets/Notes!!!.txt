@@ -7,10 +7,6 @@ hats
 pets
 weapons with knockback modifiers (more knockback more fun!!!)
 
-Wizard types:
-    teleport, shoot, teleport: terraria, shovel knight, my last game
-    move, shoot, teleport: most other games
-
 Marketing:
 
     Twitter:
@@ -19,5 +15,14 @@ Marketing:
         otherwise it can be something people can learn from with the game engine side
         or a funny thing to catch peoples attention
         announcement would work to
+
+
+Floor Purposes:
+
+    1: foyer
+    2: library
+    3: Living quarter:
+    4: Study Room
+    5: Leaders room
 
 Model Size: 0.415397

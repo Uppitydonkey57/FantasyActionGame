@@ -9,6 +9,27 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Inside.unity
+    path: Assets/Scenes/Tower/Floor1.unity
     guid: d54c94c17f6f32a47a760e7990c68381
+  - enabled: 1
+    path: Assets/Scenes/Tower/Floor2.unity
+    guid: d0dd5022ab6f7c243af803e468b0d691
+  - enabled: 1
+    path: Assets/Scenes/Tower/Floor3.unity
+    guid: db6775ee2aaaa2444b4b5939311cc324
+  - enabled: 1
+    path: Assets/Scenes/Tower/Floor4.unity
+    guid: 11a2dafc6b47c49439f35320fe6776b8
+  - enabled: 1
+    path: Assets/Scenes/Tower/Floor5.unity
+    guid: 7f2f156ef897b284aba6b29fc651ef20
+  - enabled: 1
+    path: Assets/Scenes/CapybaraInSpace.unity
+    guid: 1cf6b1344c604bb41acb0993261d1bbe
+  - enabled: 1
+    path: Assets/Scenes/Hand.unity
+    guid: 8821ec2752f72b44489990528ecd838e
+  - enabled: 1
+    path: Assets/Scenes/TheEnd.unity
+    guid: a93ec0a85005de14997eca89cc4e7ae4
   m_configObjects: {}

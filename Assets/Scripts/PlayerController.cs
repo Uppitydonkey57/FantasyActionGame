@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerWeaponData data;
 
+    [SerializeField] private PotionManager potionManager;
+
+    private Actor actor;
+
     #endregion
     
     #region Main
@@ -52,6 +56,8 @@ public class PlayerController : MonoBehaviour
         dialogueRunner = FindObjectOfType<DialogueRunner>();
 
         animator = GetComponent<Animator>();
+
+        actor = GetComponent<Actor>();
 
         SetWeapon();
     }
@@ -79,6 +85,11 @@ public class PlayerController : MonoBehaviour
                 {
                     state = PlayerState.ATTACKING;
                     Attack();
+                }
+
+                if (Input.GetButtonDown("Potion")) 
+                {
+                    UseHealthPotion();
                 }
 
 
@@ -150,6 +161,15 @@ public class PlayerController : MonoBehaviour
         {
             npcDialogue.StartDialogue();
             StartDialogue();
+        }
+    }
+
+    private void UseHealthPotion() 
+    {
+        if (potionManager.Potions > 0 && actor.health < actor.maxHealth) 
+        {
+            potionManager.ChangePotions(-1);
+            actor.ChangeHealth(actor.maxHealth);
         }
     }
     

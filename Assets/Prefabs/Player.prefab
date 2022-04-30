@@ -206,7 +206,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8303836772254755305}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
   m_Name: 
@@ -283,8 +283,8 @@ GameObject:
   - component: {fileID: 9222332302506740936}
   - component: {fileID: 9222332302506740937}
   - component: {fileID: 9222332302506740938}
-  - component: {fileID: 9222332302506740939}
   - component: {fileID: 4399152024150266786}
+  - component: {fileID: 1441119444572385839}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -362,6 +362,7 @@ MonoBehaviour:
   hand1: {fileID: 6941258491156348302}
   hand2: {fileID: 0}
   data: {fileID: 8477910938274833706}
+  potionManager: {fileID: 11400000, guid: b61df5788b79fa14b8343f71642a0a3e, type: 2}
 --- !u!114 &9222332302506740938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,7 +394,26 @@ MonoBehaviour:
   projectileSpeed: 0
   useFireChance: 0
   fireChance: 0
---- !u!114 &9222332302506740939
+--- !u!95 &4399152024150266786
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222332302506740931}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 719ef23c9c824fe4398fb16f58eb76e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1441119444572385839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -402,11 +422,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9222332302506740931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 271bacb0115fb5f438b9be9f5921f412, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c4f2823de1cac247a4c71c4cca41cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  health: 4
+  setMaxHp: 0
   hitTags:
   - EnemyWeapon
   shouldUseActivationRange: 0
@@ -430,35 +450,17 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   hitSounds: []
   deathSound: {fileID: 0}
-  hitWait: 1
+  hitWait: 0
   DestroyOnDeath: 1
   DestroyCanvas: 0
   useDeathAnimBoolean: 1
   useHitFlash: 1
-  hitFlashMaterial: {fileID: 2100000, guid: faa9c24cb1cf05a4f8b60846de8341fb, type: 2}
+  hitFlashMaterial: {fileID: 0}
   hitFlashDuration: 0.104
   isInvinsible: 0
   useCorpseLayer: 0
   debugHealth: 0
---- !u!95 &4399152024150266786
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9222332302506740931}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 719ef23c9c824fe4398fb16f58eb76e5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  healthManager: {fileID: 11400000, guid: 218eda45b56540145b7caecb4e15325a, type: 2}
 --- !u!1001 &8404878942468898796
 PrefabInstance:
   m_ObjectHideFlags: 0

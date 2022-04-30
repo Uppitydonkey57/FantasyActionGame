@@ -5,12 +5,12 @@ using UnityEditor;
 [System.Serializable]
 public class SceneChange 
 {
-    enum SwitchMode { Name, AddBuildOrder, SetBuildOrder }
-    [SerializeField] private SwitchMode switchMode;
+    public enum SwitchMode { Name, AddBuildOrder, SetBuildOrder }
+    public SwitchMode switchMode;
 
-    [SerializeField] private string sceneName;
+    public string sceneName;
 
-    [SerializeField] private int buildNumber;
+    public int buildNumber;
 
     public void ChangeScene() 
     {
