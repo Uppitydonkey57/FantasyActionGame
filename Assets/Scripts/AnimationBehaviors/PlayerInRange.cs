@@ -24,7 +24,7 @@ public class PlayerInRange : StateMachineBehaviour
 
     public bool reverse;
 
-    public bool booleanValue = true;
+    //public bool booleanValue = true;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -42,16 +42,16 @@ public class PlayerInRange : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!reverse && Physics.OverlapSphere(enemy.transform.position, range, playerLayer).Length > 0)
+        if (Physics.OverlapSphere(enemy.transform.position, range, playerLayer).Length > 0)
         {
-            Set(animator);
-        } else if (reverse && Physics.OverlapSphere(enemy.transform.position, range, playerLayer).Length < 0)
+            Set(animator, reverse ? false : true);
+        } else
         {
-            Set(animator);
+            Set(animator, reverse ? true : false);
         }
     }
 
-    void Set(Animator animator)
+    void Set(Animator animator, bool value)
     {
         float randomValue = Mathf.Round(Random.Range(0, chance));
 
@@ -70,12 +70,12 @@ public class PlayerInRange : StateMachineBehaviour
         else if (switchType == SwitchType.Boolean)
         {
             if (!useChance)
-                animator.SetBool(triggerName, booleanValue);
+                animator.SetBool(triggerName, value);
             else
             {
                 if (randomValue == 1)
                 {
-                    animator.SetBool(triggerName, booleanValue);
+                    animator.SetBool(triggerName, value);
                 }
             }
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionIfDestroyed : MonoBehaviour
+public class ActionIfDead : MonoBehaviour
 {
     public Action[] actions;
 
@@ -10,7 +10,7 @@ public class ActionIfDestroyed : MonoBehaviour
 
     bool hasPerformed;
 
-    public GameObject triggerObject;
+    public GameObject[] triggerObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +22,13 @@ public class ActionIfDestroyed : MonoBehaviour
     void Update()
     {
         if ((hasPerformed && !doOnce) || !hasPerformed)
-            if (triggerObject == null)
+            foreach (GameObject triggerObject in triggerObjects)
             {
-                foreach (Action action in actions) action.PerformAction();
-                hasPerformed = true;
+                if (triggerObject != null)
+                    return;
             }
+
+            foreach (Action action in actions) action.PerformAction();
+                hasPerformed = true;
     }
 }

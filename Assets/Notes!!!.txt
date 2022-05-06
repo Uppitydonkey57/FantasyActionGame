@@ -26,3 +26,19 @@ Floor Purposes:
     5: Leaders room
 
 Model Size: 0.415397
+
+EVERYTHING I NEED TO DO:
+
+improve player movement
+add an extra sword keyframe DONE
+maybe make the player move faster
+button prompts DONE
+scene transitions
+enemy corpses DONE
+decorations
+title screen
+sfx
+fix reseting DONE
+controller support
+dialogue box ui improvement
+stop players from leaving until enemies are killed DONE

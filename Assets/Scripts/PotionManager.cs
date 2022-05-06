@@ -6,6 +6,7 @@ using System;
 public class PotionManager : ScriptableObject {
     
     [SerializeField] private int maxPotions;
+    public int MaxPotions { get { return maxPotions; } }
 
     [System.NonSerialized] public UnityEvent<int> potionsChanged;
 
@@ -16,17 +17,20 @@ public class PotionManager : ScriptableObject {
     public void ChangePotions(int amount) 
     {
         potions += amount;
+
+        if (potions > maxPotions) potions = maxPotions;
+
         potionsChanged.Invoke(potions);
     }
 
     private void OnEnable() 
     {
-        ResetHealth();
+        ResetPotions();
 
         potionsChanged = new UnityEvent<int>();
     }
 
-    public void ResetHealth() 
+    public void ResetPotions() 
     {
         potions = maxPotions;
     }

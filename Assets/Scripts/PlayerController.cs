@@ -250,8 +250,11 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.33f);
 
-        animator.SetBool("Attacking", false);
         state = PlayerState.MOVING;
+
+        yield return new WaitForSeconds(0.1f);
+
+        animator.SetBool("Attacking", false);
     }
 
     IEnumerator BowAttack() 

@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CapybaraInSpace.unity
     guid: 1cf6b1344c604bb41acb0993261d1bbe
   - enabled: 1
+    path: Assets/Scenes/Worm.unity
+    guid: a9fe158b411f7a44c8630a683d68f94f
+  - enabled: 1
     path: Assets/Scenes/Hand.unity
     guid: 8821ec2752f72b44489990528ecd838e
   - enabled: 1

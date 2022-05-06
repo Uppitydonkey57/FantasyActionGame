@@ -201,7 +201,7 @@ public class Actor : MonoBehaviour
                     }
                 }
 
-                if (animator != null)
+                if (animator != null && health > 0)
                     animator.SetTrigger("Hit");
 
                 Invoke(nameof(ShakeScreen), 0f);

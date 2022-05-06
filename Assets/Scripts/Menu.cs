@@ -85,6 +85,10 @@ public class Menu : MonoBehaviour
 
     public void CheckPoint() 
     {
+        //BAD CODE REMOVE LATER!!!!!!
+        manager.ResetHealth();
+        potionManager.ResetPotions();
+
         reload.ChangeScene();
     }
 }

@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  health: 4
+  setMaxHp: 1
   hitTags:
   - PlayerWeapon
   shouldUseActivationRange: 1
@@ -105,7 +105,7 @@ MonoBehaviour:
   hitSounds: []
   deathSound: {fileID: 0}
   hitWait: 0
-  DestroyOnDeath: 1
+  DestroyOnDeath: 0
   DestroyCanvas: 0
   useDeathAnimBoolean: 1
   useHitFlash: 1
@@ -349,9 +349,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7085374002142155745, guid: 823c1e1d605e65840b53b7b3253d1e02, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7698523925316656570, guid: 823c1e1d605e65840b53b7b3253d1e02, type: 3}
       propertyPath: m_Name
       value: CorruptionParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698523925316656570, guid: 823c1e1d605e65840b53b7b3253d1e02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 823c1e1d605e65840b53b7b3253d1e02, type: 3}
