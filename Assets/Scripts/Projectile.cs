@@ -34,6 +34,8 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
 
+    public bool playSoundOnHit;
+
     private void Start()
     {
         screenShake = FindObjectOfType<ScreenShake>();

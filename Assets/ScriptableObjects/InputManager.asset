@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03f9471a29d73f48b078fe6acddd351, type: 3}
+  m_Name: InputManager
+  m_EditorClassIdentifier: 
+  controllerInput:
+    m_Name: Controller Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f183d1f6-8bbe-41bc-92f2-b0c10ba414d5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d8a6551a-45ec-49a9-97b6-067c15f04ec6
+      m_Path: <Gamepad>/dpad
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: c3a7dff7-c1a6-408d-9c4d-e0dd1276218d
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 3c08ef32-9b91-45b7-95ad-a88403131fb1
+      m_Path: <Gamepad>/rightStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: ab5c75db-723e-4c47-8d90-1f347e5c0c98
+      m_Path: <Gamepad>/leftTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 1fe8ec86-a0b4-4283-b642-49cfe619d496
+      m_Path: <Gamepad>/rightTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d01cab6f-de36-40d1-918d-3f802b828e89
+      m_Path: <Gamepad>/leftShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: cf31986b-3ad6-46b1-a988-f7bfba6cf7f9
+      m_Path: <Gamepad>/rightShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 26985bf7-1be4-4d2c-90a0-69b835e1ff54
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: baa2c385-c675-440f-9f93-1225bb9dd158
+      m_Path: <Gamepad>/buttonNorth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 2e61eef3-f7af-42aa-87c1-d2f8be2722bc
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: c069ea8d-b6c7-4bd6-b65a-7aa3ea9ad2cc
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: a59437ca-2510-4eb4-a68d-11032a1e6c6d
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Controller Input
+      m_Flags: 0
+  keyboardInput:
+    m_Name: Keyboard Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b7ccef58-108a-48b0-bcdc-283d6c6e042e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 4fcb9f4f-0b72-4cd8-a958-3d88cbb647a2
+      m_Path: <Keyboard>/anyKey
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Keyboard Input
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 780a157f-4995-4604-8a43-bed52429c4e2
+      m_Path: <Mouse>/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Keyboard Input
+      m_Flags: 0

@@ -2,271 +2,333 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    #region Variables
-    private Rigidbody rb;
+	#region Variables
+	private Rigidbody rb;
 
-    [SerializeField] private float speed = 6f;
+	[SerializeField] private float speed = 6f;
 
-    [SerializeField] private float turnSmoothTime = 0.1f;
-    private float turnSmoothVelocity;
+	[SerializeField] private float turnSmoothTime = 0.1f;
+	private float turnSmoothVelocity;
 
-    [SerializeField] private Transform cam;
+	[SerializeField] private Transform cam;
 
-    private Vector3 velocity;
+	private Vector3 velocity;
 
-    [SerializeField] private float dialogueRange;
-    [SerializeField] private LayerMask npcLayer;
+	[SerializeField] private float dialogueRange;
+	[SerializeField] private LayerMask npcLayer;
 
-    private float horizontal;
-    private float vertical;
+	private float horizontal;
+	private float vertical;
 
-    private DialogueRunner dialogueRunner;
+	private DialogueRunner dialogueRunner;
 
-    public WeaponData currentWeapon;
-    
-    private Weapon weapon;
+	public WeaponData currentWeapon;
+	
+	private Weapon weapon;
 
-    private float initialRotation;
+	private float initialRotation;
 
-    [SerializeField] private Camera mainCamera;
+	[SerializeField] private Camera mainCamera;
 
-    [SerializeField] private Transform hand1;
-    [SerializeField] private Transform hand2;
+	[SerializeField] private Transform hand1;
+	[SerializeField] private Transform hand2;
 
-    private Animator animator;
+	private Animator animator;
 
-    [SerializeField] private PlayerWeaponData data;
+	[SerializeField] private PlayerWeaponData data;
 
-    [SerializeField] private PotionManager potionManager;
+	[SerializeField] private PotionManager potionManager;
+	[SerializeField] private HealthManager healthManager;
+	[SerializeField] private InputManager inputManager;
 
-    private Actor actor;
+	private Controls controls;
 
-    #endregion
-    
-    #region Main
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        
-        weapon = GetComponent<Weapon>();
+	private Actor actor;
 
-        dialogueRunner = FindObjectOfType<DialogueRunner>();
+	private float moveAngle;
 
-        animator = GetComponent<Animator>();
+	[SerializeField] private AudioSource source;
 
-        actor = GetComponent<Actor>();
+	[SerializeField] private AudioClip potionSound;
 
-        SetWeapon();
-    }
+	#endregion
+	
+	#region Main
+	private void Start()
+	{
+		rb = GetComponent<Rigidbody>();
+		
+		weapon = GetComponent<Weapon>();
 
-    enum PlayerState { MOVING, ATTACKING, DIALOGUE, FROZEN }
-    PlayerState state = PlayerState.MOVING;
+		dialogueRunner = FindObjectOfType<DialogueRunner>();
 
-    private void Update() {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+		animator = GetComponent<Animator>();
+
+		actor = GetComponent<Actor>();
+
+		SetWeapon();
+	}
+
+	private void Awake() 
+	{
+		controls = new Controls();
+		
+		controls.Player.Attack.performed += ctx => 
+		{
+			if (state == PlayerState.MOVING && !CanTalk()) 
+			{
+				state = PlayerState.ATTACKING;
+				Attack();
+			}
+		};
+
+		controls.Player.Dialogue.performed += ctx => 
+		{
+			if (state == PlayerState.MOVING) 
+			{
+				RunDialogue();
+			}
+		};
+
+		controls.Player.Potion.performed += ctx => 
+		{
+			if (state == PlayerState.MOVING && healthManager.Hp > 0) 
+			{
+				UseHealthPotion();
+			}
+		};
+	}
+
+	private void OnEnable() 
+	{
+		controls.Enable();
+	}
+
+	private void OnDisable() 
+	{
+		controls.Disable();
+	}
+
+	enum PlayerState { MOVING, ATTACKING, DIALOGUE, FROZEN }
+	PlayerState state = PlayerState.MOVING;
+
+	private void Update() {
+		Vector2 move = controls.Player.Move.ReadValue<Vector2>();
+		Debug.Log(move);
+		horizontal = move.x;
+		vertical = move.y;
 
 
-        switch (state) 
-        {
-            case PlayerState.MOVING:
-                
-                animator.SetBool("Moving", (horizontal != 0 || vertical != 0));
+		switch (state) 
+		{
+			case PlayerState.MOVING:
+				
+				animator.SetBool("Moving", (horizontal != 0 || vertical != 0));
 
-                if (Input.GetButtonDown("Dialogue")) 
-                {
-                    RunDialogue();
-                }
+				break;
 
-                if (Input.GetButtonDown("Fire1")) 
-                {
-                    state = PlayerState.ATTACKING;
-                    Attack();
-                }
+			case PlayerState.DIALOGUE: 
+				if (state == PlayerState.DIALOGUE) 
+				{
+					if (!dialogueRunner.IsDialogueRunning) 
+					{
+						state = PlayerState.MOVING;
+					}
+				}
+				break;
+			
+			case PlayerState.FROZEN:
+				break;
+		}
+	}
 
-                if (Input.GetButtonDown("Potion")) 
-                {
-                    UseHealthPotion();
-                }
+	private void FixedUpdate()
+	{
+		switch (state) 
+		{
+			case PlayerState.MOVING:
+				Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+				if (direction.magnitude >= 0.1f)
+				{
+					float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 30;
+					float moveAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+					transform.rotation = Quaternion.Euler(0f, moveAngle, 0f);
 
-                break;
+					Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+					rb.velocity = new Vector3((moveDir.normalized.x * speed), rb.velocity.y, (moveDir.normalized.z * speed));
+				}
+				break;
+		} 
+	}
 
-            case PlayerState.DIALOGUE: 
-                if (state == PlayerState.DIALOGUE) 
-                {
-                    if (!dialogueRunner.IsDialogueRunning) 
-                    {
-                        state = PlayerState.MOVING;
-                    }
-                }
-                break;
-            
-            case PlayerState.FROZEN:
-                break;
-        }
-    }
+	public void StartDialogue() 
+	{
+		state = PlayerState.DIALOGUE;
+		animator.SetBool("Moving", false);
+	}
 
-    private void FixedUpdate()
-    {
-        switch (state) 
-        {
-            case PlayerState.MOVING:
-                Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+	public void IsPlayerFrozen(bool isFrozen) 
+	{
+		state = isFrozen ? PlayerState.FROZEN : PlayerState.MOVING;
+		animator.SetBool("Moving", false);
+	}
 
-                if (direction.magnitude >= 0.1f)
-                {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 30;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+	#endregion
 
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                    rb.velocity = new Vector3((moveDir.normalized.x * speed), rb.velocity.y, (moveDir.normalized.z * speed));
-                }
-                break;
-        } 
-    }
+	private void OnDrawGizmosSelected() 
+	{
+		Gizmos.DrawWireSphere(transform.position, dialogueRange);
+	}
 
-    public void StartDialogue() 
-    {
-        state = PlayerState.DIALOGUE;
-        animator.SetBool("Moving", false);
-    }
+	private void RunDialogue() 
+	{
+		Collider[] npc = Physics.OverlapSphere(transform.position, dialogueRange, npcLayer);
 
-    public void IsPlayerFrozen(bool isFrozen) 
-    {
-        state = isFrozen ? PlayerState.FROZEN : PlayerState.MOVING;
-        animator.SetBool("Moving", false);
-    }
+		if (npc.Length < 1) return;
 
-    #endregion
+		DialogueObject npcDialogue = npc[0].GetComponent<DialogueObject>();
 
-    private void OnDrawGizmosSelected() 
-    {
-        Gizmos.DrawWireSphere(transform.position, dialogueRange);
-    }
+		if (npcDialogue != null) 
+		{
+			npcDialogue.StartDialogue();
+			StartDialogue();
+		}
+	}
 
-    private void RunDialogue() 
-    {
-        Collider[] npc = Physics.OverlapSphere(transform.position, dialogueRange, npcLayer);
+	bool CanTalk() 
+	{
+		Collider[] npc = Physics.OverlapSphere(transform.position, dialogueRange, npcLayer);
 
-        if (npc.Length < 1) return;
+		if (npc.Length < 1) return false;
 
-        DialogueObject npcDialogue = npc[0].GetComponent<DialogueObject>();
+		DialogueObject npcDialogue = npc[0].GetComponent<DialogueObject>();
 
-        if (npcDialogue != null) 
-        {
-            npcDialogue.StartDialogue();
-            StartDialogue();
-        }
-    }
+		if (npcDialogue != null) 
+		{
+			return true;
+		}
 
-    private void UseHealthPotion() 
-    {
-        if (potionManager.Potions > 0 && actor.health < actor.maxHealth) 
-        {
-            potionManager.ChangePotions(-1);
-            actor.ChangeHealth(actor.maxHealth);
-        }
-    }
-    
-    #region Combat
+		return false;
+	}
 
-    void Attack() 
-    {
-        //make this tween later
-        Vector3 mousePos = Utilities.MouseWorldPos3D(Input.mousePosition, mainCamera);
-        Vector3 lookDirection = new Vector3(mousePos.x, rb.position.y, mousePos.z) - rb.position;
-        Debug.Log(lookDirection);
-        float angle = Mathf.Atan2(lookDirection.x, lookDirection.z) * Mathf.Rad2Deg;
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
-        animator.SetBool("Attacking", true);
+	private void UseHealthPotion() 
+	{
+		if (potionManager.Potions > 0 && actor.health < actor.maxHealth) 
+		{
+			source.PlayOneShot(potionSound);
+			potionManager.ChangePotions(-1);
+			actor.ChangeHealth(actor.maxHealth);
+		}
+	}
+	
+	#region Combat
 
-        switch (currentWeapon.weaponType) 
-        {
-            case WeaponType.Sword:
-                StartCoroutine(SwordAttack());
-                break;
+	void Attack() 
+	{
+		//make this tween later
+		Vector3 mousePos = Utilities.MouseWorldPos3D(Mouse.current.position.ReadValue(), mainCamera);
 
-            case WeaponType.Bow:
-                StartCoroutine(BowAttack());
-                break;
-            
-            default:
-                state = PlayerState.MOVING;
-                break;
-        }
-    }
+		float angle = 0;
 
-    void SetWeapon() 
-    {
-        switch (currentWeapon.weaponType) 
-        {
-            case WeaponType.Bow:
-                animator.runtimeAnimatorController = data.bowAnimator;
-                weapon.weaponType = Weapon.WeaponType.Projectile;
-                weapon.projectilePrefab = currentWeapon.projectile;
+		if (inputManager.Device == InputManager.InputDevice.Keyboard) 
+		{
+			Vector3 lookDirection = new Vector3(mousePos.x, rb.position.y, mousePos.z) - rb.position;
+			angle = Mathf.Atan2(lookDirection.x, lookDirection.z) * Mathf.Rad2Deg;
+		} 
+		else if (inputManager.Device == InputManager.InputDevice.Controller) 
+		{
+			angle = transform.eulerAngles.y;
+		}
+		transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+		animator.SetBool("Attacking", true);
 
-                foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
-                {
-                    if (childObject.name == "FirePoint") 
-                    {
-                        weapon.firePoint = childObject.transform;
-                    }
-                }
-                break;
+		switch (currentWeapon.weaponType) 
+		{
+			case WeaponType.Sword:
+				StartCoroutine(SwordAttack());
+				break;
 
-            case WeaponType.Sword:
-                animator.runtimeAnimatorController = data.swordAnimator;
-                weapon.weaponType = Weapon.WeaponType.Melee;
-                weapon.attackRange = data.swordAttackRange;
-                weapon.attackOffset = data.swordAttackOffset;
-                weapon.damage = currentWeapon.damage;
+			case WeaponType.Bow:
+				StartCoroutine(BowAttack());
+				break;
+			
+			default:
+				state = PlayerState.MOVING;
+				break;
+		}
+	}
 
-                Instantiate(currentWeapon.weaponModel, hand1.position, Quaternion.identity, hand1);
-                foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
-                {
-                    if (childObject.name == "FirePoint") 
-                    {
-                        weapon.firePoint = childObject.transform;
-                    }
-                }
-                break;
+	void SetWeapon() 
+	{
+		switch (currentWeapon.weaponType) 
+		{
+			case WeaponType.Bow:
+				animator.runtimeAnimatorController = data.bowAnimator;
+				weapon.weaponType = Weapon.WeaponType.Projectile;
+				weapon.projectilePrefab = currentWeapon.projectile;
 
-            default:
-                animator.runtimeAnimatorController = data.defaultAnimator;
-                break;
-        }
-    }
+				foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
+				{
+					if (childObject.name == "FirePoint") 
+					{
+						weapon.firePoint = childObject.transform;
+					}
+				}
+				break;
 
-    IEnumerator SwordAttack() 
-    {
-        yield return new WaitForSeconds(0.15f); 
+			case WeaponType.Sword:
+				animator.runtimeAnimatorController = data.swordAnimator;
+				weapon.weaponType = Weapon.WeaponType.Melee;
+				weapon.attackRange = data.swordAttackRange;
+				weapon.attackOffset = data.swordAttackOffset;
+				weapon.damage = currentWeapon.damage;
 
-        weapon.Attack();
+				Instantiate(currentWeapon.weaponModel, hand1.position, Quaternion.identity, hand1);
+				foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
+				{
+					if (childObject.name == "FirePoint") 
+					{
+						weapon.firePoint = childObject.transform;
+					}
+				}
+				break;
 
-        yield return new WaitForSeconds(0.33f);
+			default:
+				animator.runtimeAnimatorController = data.defaultAnimator;
+				break;
+		}
+	}
 
-        state = PlayerState.MOVING;
+	IEnumerator SwordAttack() 
+	{
+		yield return new WaitForSeconds(0.15f); 
 
-        yield return new WaitForSeconds(0.1f);
+		weapon.Attack();
 
-        animator.SetBool("Attacking", false);
-    }
+		yield return new WaitForSeconds(0.45f);
 
-    IEnumerator BowAttack() 
-    {
-        weapon.Attack();
+		state = PlayerState.MOVING;
 
-        yield return new WaitForSeconds(0.2f);
+		animator.SetBool("Attacking", false);
 
-        state = PlayerState.MOVING;
+		
+	}
 
-        yield break;
-    }
+	IEnumerator BowAttack() 
+	{
+		weapon.Attack();
 
-    #endregion
+		yield return new WaitForSeconds(0.2f);
+
+		state = PlayerState.MOVING;
+
+		yield break;
+	}
+
+	#endregion
 }

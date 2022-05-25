@@ -15,6 +15,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: -5127065485385417170}
   - {fileID: -2204948637030181057}
+  - {fileID: -3892472042499981981}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -125,6 +126,24 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-3892472042499981981
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6069246f37f03c4fa7fe05045d7a1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: dfbc3a4b40202e64e99e428d582db07e, type: 3}
+  - {fileID: 8300000, guid: d4f61a37e54d3ed43995b533042b01ff, type: 3}
+  - {fileID: 8300000, guid: 1821578068554a2428ca731df790b688, type: 3}
+  - {fileID: 8300000, guid: 258a1067ffdfc0542bf27fe97258f0d4, type: 3}
+  whenToPlay: 0
 --- !u!114 &-2867356785170475011
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   booleanName: Attack
   value: 0
-  changeTime: 1
+  changeTime: 2
 --- !u!1107 &-2015195681090564175
 AnimatorStateMachine:
   serializedVersion: 6
@@ -344,25 +363,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Active
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

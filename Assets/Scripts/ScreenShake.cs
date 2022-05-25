@@ -40,6 +40,7 @@ public class ScreenShake : MonoBehaviour
 
     public void Shake(float shakeDuration, float shakeMagnitude)
     {
+        Debug.LogError("NOT SHAKING!?");
         this.shakeDuration = shakeDuration;
         this.shakeMagnitude = shakeMagnitude;
     }

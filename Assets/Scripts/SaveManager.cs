@@ -6,7 +6,7 @@ using Yarn.Unity;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-[CreateAssetMenu(fileName = "SaveManager", menuName = "Managaers/SaveManager", order = 0)]
+[CreateAssetMenu(fileName = "SaveManager", menuName = "Managers/SaveManager", order = 0)]
 public class SaveManager : ScriptableObject 
 {
     [SerializeField] HealthManager manager;

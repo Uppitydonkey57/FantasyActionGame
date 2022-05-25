@@ -14,6 +14,10 @@ public class SceneChange
 
     public void ChangeScene() 
     {
+        //BAD CODE TAKE OUT LATER
+        MusicPlayer player = Object.FindObjectOfType<MusicPlayer>();
+        player.SaveMusic();
+
         switch (switchMode) 
         {
             case SwitchMode.Name:

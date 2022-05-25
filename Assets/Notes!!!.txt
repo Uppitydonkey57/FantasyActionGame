@@ -16,29 +16,30 @@ Marketing:
         or a funny thing to catch peoples attention
         announcement would work to
 
-
-Floor Purposes:
-
-    1: foyer
-    2: library
-    3: Living quarter:
-    4: Study Room
-    5: Leaders room
-
 Model Size: 0.415397
 
-EVERYTHING I NEED TO DO:
+Story Ideas!
 
-improve player movement
-add an extra sword keyframe DONE
-maybe make the player move faster
-button prompts DONE
-scene transitions
-enemy corpses DONE
-decorations
-title screen
-sfx
-fix reseting DONE
-controller support
-dialogue box ui improvement
-stop players from leaving until enemies are killed DONE
+Big Story
+    
+    Idea 1
+        You were part of a cult which opened a portal to a realm of evil tyrants. you attempt to stop the
+        ritual but you mess it up even more and create holes in the universe which lots of random things come
+        through corrupting the world
+
+Little Story
+
+    Idea 1
+        For reasons indifferent to you a series of portals opened around the world which corrupted the world
+        For a currently undecided reason you decide it is your duty to save as much as you can so you go around
+        attempting to close portals.
+
+
+Area Ideas
+Desert (Dune themed)
+Dinosaur Island 
+Forest 
+Dwarf Mountain Home
+Ice Place
+Underwater
+Space Tyrant Home

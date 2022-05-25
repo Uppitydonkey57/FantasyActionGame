@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.Animations;
 
 public class PlayerWeaponData : MonoBehaviour
 {
-    public AnimatorController defaultAnimator;
+    public RuntimeAnimatorController defaultAnimator;
 
     [Header("Sword")]
 

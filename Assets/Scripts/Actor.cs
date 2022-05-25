@@ -82,6 +82,7 @@ public class Actor : MonoBehaviour
             health = maxHealth;
 
         screenShake = FindObjectOfType<ScreenShake>();
+        Debug.Log(screenShake.gameObject.name);
 
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();

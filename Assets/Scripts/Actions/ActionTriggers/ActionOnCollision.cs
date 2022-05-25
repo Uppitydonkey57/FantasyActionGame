@@ -23,7 +23,7 @@ public class ActionOnCollision : MonoBehaviour
             Collider[] collisions = Physics.OverlapBox(transform.position, size / 2, transform.rotation, layer);
             if (collisions.Length > 0)
             {
-                Debug.Log(Physics.OverlapBox(transform.position, size, Quaternion.identity, layer)[0]);
+                //Debug.Log(Physics.OverlapBox(transform.position, size, Quaternion.identity, layer)[0]);
                 foreach (Action action in actions) action.PerformAction();
                 hasPerformed = true;
             }
