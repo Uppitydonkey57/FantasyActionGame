@@ -18,7 +18,7 @@ public static class Utilities
 
     public static void DeleteChildren(this Transform t)
     {
-        foreach (Transform child in t) Object.Destroy(child.gameObject);
+        foreach (Transform child in t) if (child != t) Object.Destroy(child.gameObject);
     }
 
     public static Vector2 GetAngleDistance(float angle)

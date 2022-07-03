@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "DevShortcut", menuName = "Manager/DevShortcut", order = 0)]
+[CreateAssetMenu(fileName = "DevShortcut", menuName = "Managers/DevShortcut", order = 0)]
 public class DevShortcut : ScriptableObject 
 {
     public InputAction quitAction;

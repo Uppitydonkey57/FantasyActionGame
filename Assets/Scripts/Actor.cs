@@ -325,7 +325,7 @@ public class Actor : MonoBehaviour
 
             if (projectile != null)
             {
-                ChangeHealthKnockback(-projectile.damage, projectile.transform.rotation.eulerAngles * -1);
+                ChangeHealthKnockback(-projectile.damage, projectile.transform.forward);
             }
         }
     }
@@ -338,7 +338,7 @@ public class Actor : MonoBehaviour
 
             if (projectile != null)
             {
-                ChangeHealthKnockback(-projectile.damage, projectile.transform.rotation.eulerAngles * -1);
+                ChangeHealthKnockback(-projectile.damage, projectile.transform.forward);
             }
         }
     }

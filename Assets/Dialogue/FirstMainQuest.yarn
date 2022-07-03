@@ -1,0 +1,23 @@
+title: Posters
+tags: 
+colorID: 0
+position: 280,252
+---
+Adventurers Wanted!!
+Head to the Town Hall for further information
+<<if marker_exists("Read Poster") == false>>
+<<create_marker "Read Poster">>
+<<endif>>
+===
+title: MayorConversation
+tags: 
+colorID: 0
+position: 539,247
+---
+Mayor: Hello
+You: Hello
+<<if marker_exists("Read Poster") == true>>
+Mayor: I see you read my Poster
+You: I did, so what is going on?
+<<endif>>
+===

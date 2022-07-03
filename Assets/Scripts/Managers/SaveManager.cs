@@ -13,7 +13,6 @@ public class SaveManager : ScriptableObject
 
     public GameObject playerPrefab;
 
-
     public void CreateSave(Save save) 
     {
         BinaryFormatter formatter = new BinaryFormatter();

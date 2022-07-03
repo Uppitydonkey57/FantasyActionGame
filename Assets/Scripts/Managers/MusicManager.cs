@@ -10,7 +10,9 @@ public class MusicManager : ScriptableObject
     Dictionary<string, float> songs = new Dictionary<string, float>();
     
     public float GetSong(AudioClip clip) 
-    {   
+    {
+        if (songs == null) return 0;
+
         if (songs.ContainsKey(clip.name))
         {
             Debug.Log("clip found!");

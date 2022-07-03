@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
+using UnityEngine.InputSystem;
 
 public class Menu : MonoBehaviour 
 {
@@ -21,6 +22,14 @@ public class Menu : MonoBehaviour
 
     [SerializeField] private DialogueRunner runner;
 
+    [SerializeField] private GameObject inventoryMenu;
+
+    [SerializeField] private PauseState pause;
+
+    private Controls controls;
+
+    private bool isInInventory = false;
+
     private void Start() 
     {
         //reload.
@@ -35,12 +44,23 @@ public class Menu : MonoBehaviour
         reload = new SceneChange();
         reload.switchMode = SceneChange.SwitchMode.AddBuildOrder;
         reload.buildNumber = 0;
+
+        controls.Player.OpenInventory.performed += _ => OpenInventory();
+    }
+
+    private void OnEnable()
+    {
+        controls = new Controls();
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 
     void UpdateHealth(float health) 
     {
-        Debug.Log($"Player Health Is {health}");
-
         for (int i = 0; i < hearts.Length; i++) 
         {
             if (i < health)
@@ -90,5 +110,26 @@ public class Menu : MonoBehaviour
         potionManager.ResetPotions();
 
         reload.ChangeScene();
+    }
+
+    void OpenInventory()
+    {
+        if (isInInventory)
+        {
+            inventoryMenu.SetActive(false);
+            healthGUI.SetActive(true);
+            pause.Unpuase();
+            isInInventory = false;
+            return;
+        }
+
+        if (!isInInventory)
+        {
+            inventoryMenu.SetActive(true);
+            healthGUI.SetActive(false);
+            pause.Pause();
+            inventoryMenu.GetComponent<InventoryMenu>().HideSelections();
+            isInInventory = true;
+        }
     }
 }

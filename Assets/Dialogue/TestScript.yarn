@@ -1,8 +1,20 @@
 title: Node
 tags: 
 colorID: 0
-position: 694,310
+position: 693,309
 ---
-Hello
-Hi
+<<if quest_complete("Test Quest") == false>>
+    <<assign_quest "Test Quest">>
+    Hello
+    Hi
+<<endif>>
+
+<<if quest_complete("Test Quest") == true>>
+    Thanks for killing the kobolds
+    <<complete_quest "I'm Talking!!!!">>
+<<endif>>
+
+<<if quest_complete("I'm Talking!!!!") == true>>
+    You've done everything I needed now get away from me
+<<endif>>
 ===

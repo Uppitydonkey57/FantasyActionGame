@@ -1,0 +1,103 @@
+Game Foundation:
+A zelda-like RPG that has a silly story and with a lot of weird nonsense
+
+
+Bugs:
+
+weird offset with mouse (probably just add an offset in the aiming)
+
+world space canvases appearing inside of other objects
+
+Feature Creep:
+hats
+pets
+weapons with knockback modifiers (more knockback more fun!!!)
+breakeables
+
+Marketing:
+
+    Twitter:
+        intially show what the game is
+        every gameplay related post should show something new and interesting
+        otherwise it can be something people can learn from with the game engine side
+        or a funny thing to catch peoples attention
+        announcement would work to
+
+Model Size: 0.415397
+
+Story Ideas!
+
+Big Story
+    
+    Idea 1
+        You were part of a cult which opened a portal to a realm of evil tyrants. you attempt to stop the
+        ritual but you mess it up even more and create holes in the universe which lots of random things come
+        through corrupting the world
+
+Little Story
+
+    Idea 1
+        For reasons indifferent to you a series of portals opened around the world which corrupted the world
+        For a currently undecided reason you decide it is your duty to save as much as you can so you go around
+        attempting to close portals.
+
+
+Area Ideas
+Desert (Dune themed)
+Dinosaur Island 
+Forest 
+Dwarf Mountain Home
+Ice Place
+Underwater
+Space Tyrant Home
+
+Country area 
+	Rock People
+	Mine for fantasy material
+
+
+Quest Systems:
+Quest Giver 
+Goal
+Reward
+Dialogue
+
+Quest List will be checked when: enemy is killed? item is obtained
+Change quest list dialogue identifier to a custom key as opposed to quest name
+
+Area Design Plan!
+Think of a basis for the idea
+block out the area
+put in important stuff (ie enemies, quests, town stuff)
+big details
+make new art
+little detail
+
+original texture resolution is 513 by 513
+
+Change ArmorManager Name To EquipmentManager
+
+when an enemy is killeed
+
+Serialization:
+
+    Items:
+        list of identifiers which can be determined by item name (sure hope I don't end up with 2 items with the same name)
+
+    Quests:
+        json list each with an element with the name to identify the data and then a 1+ 
+        strings which can be translated to figure out quest progress
+
+    Player: 
+        scene
+        position
+            
+
+Canvas UI Discord Comment
+
+Could have the individual buttons separated out and rendered to separate render textures, then have mouse detection on the render texture; 
+but at that point suppose you could just have a normal texture and skip the canvas element for buttons
+
+STORY IDEA
+
+    THE PLAYER HAS A SPECIAL TOOL THAT ALLOWS HIM TO SEAL PORTALS ONCE HE FINDS THEIR SOURCE.

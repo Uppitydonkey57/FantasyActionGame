@@ -1,0 +1,28 @@
+
+Yarn Commands:
+
+	assign_quest(string questName)
+		
+		assigns a quest with the inputed name.
+
+	complete_quest(string questName):
+		
+		completes the quest with the inputed name.
+
+	create_marker(string markerName):
+
+		creates a marker with the inputed name.
+
+Yarn Functions:
+
+	bool quest_complete(string questName)
+	
+		returns whether or not the quest with the inputed name has been completed.
+	
+	bool quest_in_progress(string questName) [Currently Unimplemented]
+	
+		returns whether or not the quest with the inputed name is in progress.
+
+	bool marker_exists(string markerName)
+
+		returns whether or not the marker with the inputed name exists.

@@ -49,6 +49,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""OpenInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""64aa3ebe-1df8-471d-9c22-2e7b800344e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -304,6 +312,28 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Dialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4b48c6f-5e26-4042-a9e6-7e7dc0bde349"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b7d4272-ae92-460c-bd3e-70d3e8bedca2"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,6 +357,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Potion = m_Player.FindAction("Potion", throwIfNotFound: true);
         m_Player_Dialogue = m_Player.FindAction("Dialogue", throwIfNotFound: true);
+        m_Player_OpenInventory = m_Player.FindAction("OpenInventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -380,6 +411,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Potion;
     private readonly InputAction m_Player_Dialogue;
+    private readonly InputAction m_Player_OpenInventory;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -388,6 +420,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Potion => m_Wrapper.m_Player_Potion;
         public InputAction @Dialogue => m_Wrapper.m_Player_Dialogue;
+        public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -409,6 +442,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Dialogue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
                 @Dialogue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
                 @Dialogue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
+                @OpenInventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventory;
+                @OpenInventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOpenInventory;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -425,6 +461,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Dialogue.started += instance.OnDialogue;
                 @Dialogue.performed += instance.OnDialogue;
                 @Dialogue.canceled += instance.OnDialogue;
+                @OpenInventory.started += instance.OnOpenInventory;
+                @OpenInventory.performed += instance.OnOpenInventory;
+                @OpenInventory.canceled += instance.OnOpenInventory;
             }
         }
     }
@@ -453,5 +492,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnPotion(InputAction.CallbackContext context);
         void OnDialogue(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
 }

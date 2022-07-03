@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201f1e72dc5e38249bdc97f7b6103743, type: 3}
   m_Name: TestSword
   m_EditorClassIdentifier: 
-  weaponName: David's Sword
+  itemName: David's Sword
+  itemDescription: DLKFJEoilKSJFOE:LJLFIKE
+  itemIcon: {fileID: 2800000, guid: 14065af69fa88444b9496271c7c0a215, type: 3}
+  itemModel: {fileID: 1440068554687825378, guid: c31e716b5ac0d0f44967dd41af1a0e32, type: 3}
   weaponType: 0
   damage: 1
   projectile: {fileID: 0}
-  weaponModel: {fileID: 1440068554687825378, guid: c31e716b5ac0d0f44967dd41af1a0e32, type: 3}
+  animator: {fileID: 22100000, guid: 719ef23c9c824fe4398fb16f58eb76e5, type: 2}
+  projectileSpeed: 0
+  range: {x: 4.74, y: 1.49, z: 2.82}
+  offset: {x: 0, y: 0.97, z: 2.19}
+  knockbackMultiplier: 1

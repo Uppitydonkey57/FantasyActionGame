@@ -1,0 +1,27 @@
+
+The first area of the game is country themed
+
+Questline:
+
+	the questline of the area is the miners of the town have dug too deep into their mines and now a demon has been unleashed
+	into the mines
+
+	they were initially able to keep it contained but due to a portal opening it is now able to escape and has taken over the mines
+
+	Not sure about this bit just sort of ideas:
+		
+		you go with the mayor into the mines to fight the demon but you are no match. the mayor is wounded so he asks
+		the player to find a way to shut down the portal so he finds the source, shuts it down and then is able to 
+		fight the demon with the help of the mayor
+
+
+
+Characters:
+
+	Mayor:
+		
+		serious but makes stupid jokes
+
+Town Stuff:
+	
+	The town is currently in a panic. this is intended to be shown to the player by having rock people sitting around the 

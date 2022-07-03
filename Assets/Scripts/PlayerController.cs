@@ -14,10 +14,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float turnSmoothTime = 0.1f;
 	private float turnSmoothVelocity;
 
-	[SerializeField] private Transform cam;
-
-	private Vector3 velocity;
-
 	[SerializeField] private float dialogueRange;
 	[SerializeField] private LayerMask npcLayer;
 
@@ -26,20 +22,19 @@ public class PlayerController : MonoBehaviour
 
 	private DialogueRunner dialogueRunner;
 
-	public WeaponData currentWeapon;
+	private WeaponData currentWeapon;
 	
 	private Weapon weapon;
 
 	private float initialRotation;
 
+	[Tooltip("This variable must be set for the player to be able to properly take mouse inputs.")]
 	[SerializeField] private Camera mainCamera;
 
 	[SerializeField] private Transform hand1;
 	[SerializeField] private Transform hand2;
 
 	private Animator animator;
-
-	[SerializeField] private PlayerWeaponData data;
 
 	[SerializeField] private PotionManager potionManager;
 	[SerializeField] private HealthManager healthManager;
@@ -54,6 +49,14 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private AudioSource source;
 
 	[SerializeField] private AudioClip potionSound;
+
+	[SerializeField] private ArmorManager armorManager;
+
+	public Transform headPoint;
+
+	private Quaternion handRotation;
+
+	[SerializeField] private PauseState pauseState;
 
 	#endregion
 	
@@ -71,6 +74,12 @@ public class PlayerController : MonoBehaviour
 		actor = GetComponent<Actor>();
 
 		SetWeapon();
+
+		RefreshClothing();
+
+		armorManager.equipmentChanged.AddListener(ResetEquipment);
+
+		handRotation = hand1.rotation;
 	}
 
 	private void Awake() 
@@ -79,7 +88,7 @@ public class PlayerController : MonoBehaviour
 		
 		controls.Player.Attack.performed += ctx => 
 		{
-			if (state == PlayerState.MOVING && !CanTalk()) 
+			if (state == PlayerState.MOVING && !CanTalk() && !pauseState.IsPaused) 
 			{
 				state = PlayerState.ATTACKING;
 				Attack();
@@ -118,7 +127,6 @@ public class PlayerController : MonoBehaviour
 
 	private void Update() {
 		Vector2 move = controls.Player.Move.ReadValue<Vector2>();
-		Debug.Log(move);
 		horizontal = move.x;
 		vertical = move.y;
 
@@ -127,7 +135,8 @@ public class PlayerController : MonoBehaviour
 		{
 			case PlayerState.MOVING:
 				
-				animator.SetBool("Moving", (horizontal != 0 || vertical != 0));
+				if (animator.runtimeAnimatorController != null)
+					animator.SetBool("Moving", (horizontal != 0 || vertical != 0));
 
 				break;
 
@@ -225,7 +234,31 @@ public class PlayerController : MonoBehaviour
 			actor.ChangeHealth(actor.maxHealth);
 		}
 	}
+
+	private void RefreshClothing()
+	{
+		headPoint.DeleteChildren();
+
+		Clothing headClothing = armorManager.vanityHead;
+
+		if (armorManager.vanityHead == null)
+		{
+			if (armorManager.head != null)
+			{
+				headClothing = armorManager.head;		
+			}
+		}
+
+		if (headClothing != null)
+			Instantiate(headClothing.itemModel, headPoint.transform.position, headPoint.transform.rotation, headPoint);
+	}
 	
+	private void ResetEquipment()
+    {
+		RefreshClothing();
+		SetWeapon();
+    }
+
 	#region Combat
 
 	void Attack() 
@@ -249,11 +282,11 @@ public class PlayerController : MonoBehaviour
 
 		switch (currentWeapon.weaponType) 
 		{
-			case WeaponType.Sword:
+			case WeaponType.Melee:
 				StartCoroutine(SwordAttack());
 				break;
 
-			case WeaponType.Bow:
+			case WeaponType.Ranged:
 				StartCoroutine(BowAttack());
 				break;
 			
@@ -265,12 +298,18 @@ public class PlayerController : MonoBehaviour
 
 	void SetWeapon() 
 	{
+		currentWeapon = armorManager.weapon;
+
+		hand1.DeleteChildren();
+
+		animator.runtimeAnimatorController = currentWeapon.animator;
+		Instantiate(currentWeapon.itemModel, hand1.position, hand1.transform.parent.rotation * currentWeapon.itemModel.transform.rotation, hand1);
 		switch (currentWeapon.weaponType) 
 		{
-			case WeaponType.Bow:
-				animator.runtimeAnimatorController = data.bowAnimator;
+			case WeaponType.Ranged:
 				weapon.weaponType = Weapon.WeaponType.Projectile;
 				weapon.projectilePrefab = currentWeapon.projectile;
+				weapon.projectileSpeed = currentWeapon.projectileSpeed;
 
 				foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
 				{
@@ -281,14 +320,12 @@ public class PlayerController : MonoBehaviour
 				}
 				break;
 
-			case WeaponType.Sword:
-				animator.runtimeAnimatorController = data.swordAnimator;
+			case WeaponType.Melee:
 				weapon.weaponType = Weapon.WeaponType.Melee;
-				weapon.attackRange = data.swordAttackRange;
-				weapon.attackOffset = data.swordAttackOffset;
+				weapon.attackRange = currentWeapon.range;
+				weapon.attackOffset = currentWeapon.offset;
 				weapon.damage = currentWeapon.damage;
 
-				Instantiate(currentWeapon.weaponModel, hand1.position, Quaternion.identity, hand1);
 				foreach (Transform childObject in GetComponentsInChildren<Transform>()) 
 				{
 					if (childObject.name == "FirePoint") 
@@ -299,7 +336,8 @@ public class PlayerController : MonoBehaviour
 				break;
 
 			default:
-				animator.runtimeAnimatorController = data.defaultAnimator;
+				//@TODO: FIX THIS LINE
+				//animator.runtimeAnimatorController = data.defaultAnimator;
 				break;
 		}
 	}
