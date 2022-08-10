@@ -1,23 +1,41 @@
-title: Posters
+title: IntroSkeleton
 tags: 
 colorID: 0
-position: 280,252
+position: 282,301
 ---
-Adventurers Wanted!!
-Head to the Town Hall for further information
-<<if marker_exists("Read Poster") == false>>
-<<create_marker "Read Poster">>
-<<endif>>
-===
-title: MayorConversation
-tags: 
-colorID: 0
-position: 539,247
----
-Mayor: Hello
 You: Hello
-<<if marker_exists("Read Poster") == true>>
-Mayor: I see you read my Poster
-You: I did, so what is going on?
-<<endif>>
+Skeleton: Hello, what are you here for, I haven't seen anyone down here in a long time.
+You: I'm looking for INSERT ITEM HERE
+Skeleton: I guess you can have it if you do something for me.
+You: What is it?
+Skeleton: We've got a gig tonight and we've got to be there
+Skeleton: But we need to pay off the necromancer
+You: ???
+Skeleton: We stay alive by paying a necromancer to cast a spell on us and we need someone to pay him tonight
+You: I'll do it.
+Skeleton: Thank you, here's the payment.
+You aquire goblin toes and fingernail clippings
+You: ???
+Skeleton: Just follow the path to the left, goodbye
+<<create_marker "SkeletonsLeave">>
+===
+title: Necromancer
+tags: 
+colorID: 0
+position: -91,259
+---
+Necromancer: WHAT ARE YOU DOING?! HOW DID YOU GET HERE?!!!
+Necromancer: I CAN KILL YOU!!! HOW DID YOU GET PAST MY ZOMBIES!?!
+Necromancer: *Inaudible angry babble*
+You: I came here to give you your payment for those skeletons.
+You: You've made it pretty treacherous for them to pay you, that kinda sucks.
+Necromancer: DON'T QUESTION MY METHODS! please
+Necromancer: I will take your payment!!!!!
+goblin toes have been removed from your inventory.
+You: Thank you, goodbye
+Necromancer: BY THE WAY! 
+You: *Rolls eyes*
+Necromancer: If you wish to see those skeletons perform, you may
+Necromancer: They gave me a ticket and I am have no interest in seeing an undead bluegrass band so you may have it
+You: Ok, thanks.
 ===

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07488302d3fad0a4ba7fc44aca00f1e0, type: 3}
+  m_Name: NecromancerFetchQuest
+  m_EditorClassIdentifier: 
+  questName: NecromancerFetchQuest
+  description: Give some goblin toes to a Necromancer to keep the skeletons a memeber
+    of the living dead
+  questType: 1
+  killsNeeded: 0
+  tag: 
+  requiredItem: {fileID: 0}
+  followupQuest: {fileID: 0}
+  questFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  questList: {fileID: 11400000, guid: 7e64d1f60eec3ee48bd6fb9cd4d70219, type: 2}
+  verified: 1

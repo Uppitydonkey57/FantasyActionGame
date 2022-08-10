@@ -17,7 +17,7 @@ public class Attack : StateMachineBehaviour
 
         if (weapon == null)
         {
-            weapon = animator.GetComponentInChildren<Weapon>();
+            weapon = animator.gameObject.GetComponentInChildren<Weapon>();
         }
         
         if (weapon == null)

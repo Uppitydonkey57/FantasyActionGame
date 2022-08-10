@@ -9,13 +9,13 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 053561912b1654d80a424bb0696a74ae, type: 3}
   sourceScripts:
-  - {fileID: 6391573757903218779, guid: 1517fb12faa32c347b1a231e3f60feea, type: 3}
   - {fileID: 6391573757903218779, guid: 2677d8a624fc00743b655232a1ab5614, type: 3}
   - {fileID: 6391573757903218779, guid: 8aa102c7b31f5de4c95a13fd6ad53160, type: 3}
   - {fileID: 6391573757903218779, guid: 8b3c939cca405444587c6fc41fc86195, type: 3}
+  - {fileID: 6391573757903218779, guid: 1517fb12faa32c347b1a231e3f60feea, type: 3}
   compileErrors: []
   serializedDeclarations: []
-  defaultLanguage: en
+  defaultLanguage: en-US
   languagesToSourceAssets: []
   useAddressableAssets: 0
   searchAllAssembliesForActions: 1

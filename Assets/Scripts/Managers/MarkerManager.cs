@@ -6,7 +6,7 @@ using Yarn.Unity;
 using UnityEditor;
 
 [CreateAssetMenu(menuName = "Managers/MarkerManager")]
-public class MakerManager : ScriptableObject
+public class MarkerManager : ScriptableObject
 {
     public List<string> markers = new List<string>();
     private static List<string> staticMarkers;
@@ -16,14 +16,14 @@ public class MakerManager : ScriptableObject
     private void OnEnable()
     {
         questAdded = new UnityEvent<string>();
-        questAdded.AddListener(AddQuest);
+        questAdded.AddListener(AddMarker);
 
         markers = new List<string>();
         staticMarkers = markers;
     }
 
     [YarnCommand("create_marker")]
-    public static void AssignQuest(string markerName)
+    public static void CreateMarker(string markerName)
     {
         questAdded.Invoke(markerName);
     }
@@ -42,7 +42,7 @@ public class MakerManager : ScriptableObject
         return false;
     }
 
-    void AddQuest(string markerName)
+    void AddMarker(string markerName)
     {
         markers.Add(markerName);
         staticMarkers = markers;
